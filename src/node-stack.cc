@@ -48,9 +48,9 @@ static v8::Handle<v8::Value> getStack(const v8::Arguments& args){
 }
 
 extern "C" void init (v8::Handle<v8::Object> target){
-	v8::HandleScope scope;
+    v8::HandleScope scope;
 
-	NODE_SET_METHOD(target, "getStack", getStack);
+    NODE_SET_METHOD(target, "getStack", getStack);
     NODE_DEFINE_NAMED_CONSTANT(target, "kLineNumber", v8::StackTrace::kLineNumber);
     NODE_DEFINE_NAMED_CONSTANT(target, "kColumnOffset", v8::StackTrace::kColumnOffset);
     NODE_DEFINE_NAMED_CONSTANT(target, "kScriptName", v8::StackTrace::kScriptName);
