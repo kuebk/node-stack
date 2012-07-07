@@ -17,5 +17,5 @@ def build(bld):
 	obj.source = 'src/node-stack.cc'
 
 def shutdown():
-	if os.path.exists("build/default/stack.node"):
+	if os.fs.exists("build/default/stack.node"):
 		os.system("cp build/default/stack.node ./bin");
