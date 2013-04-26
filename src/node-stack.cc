@@ -47,7 +47,7 @@ static v8::Handle<v8::Value> getStack(const v8::Arguments& args){
     return scope.Close(currentStack->AsArray());
 }
 
-extern "C" void init (v8::Handle<v8::Object> target){
+void init (v8::Handle<v8::Object> target){
     v8::HandleScope scope;
 
     NODE_SET_METHOD(target, "getStack", getStack);
@@ -62,3 +62,4 @@ extern "C" void init (v8::Handle<v8::Object> target){
     NODE_DEFINE_NAMED_CONSTANT(target, "kDetailed", v8::StackTrace::kDetailed);
 }
 
+NODE_MODULE(stack, init);
