@@ -5,7 +5,7 @@
     "keywords": ["stack", "trace", "call", "dump"],
     "author": "Jakub Lekstan <kuebzky@gmail.com>",
     "dependencies": {},
-    "main": "bin/stack.node",
+    "main": "bin/stack.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/kuebk/node-stack.git"
