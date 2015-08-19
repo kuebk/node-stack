@@ -23,14 +23,19 @@
 #include <v8.h>
 #include <node.h>
 
-#define NODE_DEFINE_NAMED_CONSTANT(target, name, constant) \
-    (target)->Set(v8::String::NewSymbol(name), \
-                  v8::Integer::New(constant), \
-                  static_cast<v8::PropertyAttribute>(v8::ReadOnly | v8::DontDelete))
 
-static v8::Handle<v8::Value> getStack(const v8::Arguments& args){
-    v8::HandleScope scope;
+static void NODE_DEFINE_NAMED_CONSTANT(v8::Handle<v8::Object> target, const char* name, v8::StackTrace::StackTraceOptions constant) {
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
 
+    target->Set(v8::String::NewFromUtf8(isolate, name, v8::String::kInternalizedString), 
+            v8::Integer::New(isolate, constant));
+}
+
+//static v8::Handle<v8::Value> getStack(const v8::Arguments& args){
+static void getStack(const v8::FunctionCallbackInfo<v8::Value>& args){
+    v8::Isolate* isolate = args.GetIsolate();
+    v8::HandleScope scope(isolate);
+    
     int frameCount = 10;
     int stackOptions = v8::StackTrace::kOverview;
 
@@ -42,13 +47,14 @@ static v8::Handle<v8::Value> getStack(const v8::Arguments& args){
         stackOptions = (int) v8::Local<v8::Integer>::Cast(args[1])->Int32Value();
     }
 
-    v8::Local<v8::StackTrace> currentStack = v8::StackTrace::CurrentStackTrace(frameCount, static_cast<v8::StackTrace::StackTraceOptions>(stackOptions));
+    v8::Local<v8::StackTrace> currentStack = v8::StackTrace::CurrentStackTrace(isolate, frameCount, static_cast<v8::StackTrace::StackTraceOptions>(stackOptions));
 
-    return scope.Close(currentStack->AsArray());
+    return args.GetReturnValue().Set(currentStack->AsArray());
 }
 
 void init (v8::Handle<v8::Object> target){
-    v8::HandleScope scope;
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+    v8::HandleScope scope(isolate);
 
     NODE_SET_METHOD(target, "getStack", getStack);
     NODE_DEFINE_NAMED_CONSTANT(target, "kLineNumber", v8::StackTrace::kLineNumber);
