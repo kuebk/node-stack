@@ -1,6 +1,6 @@
 {
     "name": "stacktrace",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Lets you access v8::StackTrace",
     "keywords": ["stack", "trace", "call", "dump"],
     "author": "Jakub Lekstan <kuebzky@gmail.com>",
@@ -11,6 +11,6 @@
         "url": "https://github.com/kuebk/node-stack.git"
     },
     "engines": {
-        "node": ">= 0.10.0" 
+        "node": ">= 0.12.0" 
     }
 }
