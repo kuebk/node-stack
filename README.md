@@ -1,8 +1,9 @@
-##About:
+## About:
+
 Lets you print call stack without throwing an error in javascript
 
-##How to build:
+## How to build:
     node-waf configure build
 
-##Example:
+## Example:
 See ````examples/test.js````
